@@ -1,0 +1,92 @@
+<template>
+  <div class="content">
+    <div class="content-head">
+      <div class="head-left">发现好歌单</div>
+      <div class="head-right">查看更多</div>
+    </div>
+    <div class="content-bottom">
+      <div class="bottom-bg" v-for="item in state.musicList" :key="item.id">
+        <div style="position: relative;">
+          <img :src="item.picUrl" />
+        <div class="bg-count"><i class="iconfont icon-bofang bg-play" ></i>{{handleCount(item.playCount)}}</div>
+        </div>
+        <div class="bg-name">{{item.name}}</div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+import { getPerson } from "../api/index";
+import { reactive,onMounted } from "vue";
+export default {
+   setup() {
+    let state=reactive({musicList:[]})
+    onMounted( async()=>{
+    let res = await getPerson(6);
+    state.musicList = reactive(res.data.result);
+    })
+
+    function handleCount(value){
+           return  Math.ceil(value/10000)+'万'
+         }
+    return {
+      state,
+     handleCount,
+
+    };
+  },
+
+};
+</script>
+
+<style lang="less" scoped>
+.content {
+  .content-head {
+    display: flex;
+    margin: 1rem;
+    .head-left {
+      flex: 3;
+      font-weight: 800;
+    }
+    .head-right {
+      border: 1px solid rgb(189, 189, 189);
+      border-radius: 1rem;
+      font-size: 0.32rem;
+      padding: 0.2rem;
+    }
+  }
+  .content-bottom ::-webkit-scrollbar {
+      /*隐藏滚轮*/
+      display: none;
+    }
+  .content-bottom {
+    width: 7.5rpx;
+    flex-flow: row nowrap;
+    overflow-x: scroll;
+    display: flex;
+    -ms-overflow-style:none;
+    .bottom-bg {
+      margin-right: 0.5rem;
+      img {
+        width: 5rem;
+      }
+      .bg-play {
+        font-size: .32rem;
+      }
+      .bg-count {
+         position:absolute;
+         top:0;
+         right: 0;
+         font-size: .32rem;
+         color:rgb(255, 255, 255);
+         opacity: .8;
+         margin-right:.2rem
+      }
+      .bg-name{
+        font-size:.64rem
+      }
+    }
+  }
+}
+</style>

@@ -1,0 +1,18 @@
+@charset "utf-8";
+html{
+    font-size: 100px;
+}
+@media screen and(max-width:750) {
+    html{
+        font-size: 13.333vw
+    }
+}
+*{
+    margin:0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family:'微软雅黑'
+}
+body{
+    width: 7.5rem;
+}
