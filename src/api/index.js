@@ -9,3 +9,7 @@ export function getBanner(params) {
 export function getPerson(params) {
     return axios.get(`${baseURL}/personalized?limit=${params}`)
 }
+/* 获取歌单详情页 */
+export function getPlayList(params) {
+    return axios.get(`${baseURL}/playlist/detail?id=${params}`)
+}

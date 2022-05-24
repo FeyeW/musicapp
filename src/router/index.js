@@ -21,7 +21,7 @@ const router = createRouter({
             path: '/listview',
             name: 'listview',
             component: () =>
-                import ( /* webpackChunkName:'listview' */ '../views/listView.vue')
+                import ( /* webpackChunkName:'listview' */ '../views/ListView.vue')
         }
     ]
 });
