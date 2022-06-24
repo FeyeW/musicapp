@@ -106,8 +106,6 @@ export default {
     }
     .header-left {
       flex: 1;
-      h5 {
-      }
     }
 
     .header-right {
@@ -186,12 +184,12 @@ export default {
       font-size: 1.6rem;
       color: #fff;
     }
-    .bottom-icon{
+    .bottom-icon {
       flex: 1;
       display: flex;
       flex-direction: column;
       justify-items: center;
-      color:#fff
+      color: #fff;
     }
   }
 }
