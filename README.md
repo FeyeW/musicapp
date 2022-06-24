@@ -1,9 +1,10 @@
 # musicapp
 
-## Project setup
-```
+## 项目介绍
+个人基于Vue3技术栈的项目练习
+
 npm install
-```
+npm run dev
 
 ### Compiles and hot-reloads for development
 ```
