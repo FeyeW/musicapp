@@ -25,11 +25,24 @@
           <img :src="avatarUrl" alt="" />
           <span>{{ Nickname }}</span
           ><i class="iconfont icon-xiangyoujiantou"></i>
-          <p>{{ Description }}11111111111111111111111111111111111111111111</p>
+          <p>{{ Description }}</p>
         </div>
       </div>
     </div>
-    <div class="content-buttom"></div>
+    <div class="content-buttom">
+      <div class="bottom-icon">
+        <i class="iconfont icon-pinglun"></i><span>{{ commentCount }}</span>
+      </div>
+      <div class="bottom-icon">
+        <i class="iconfont icon-fenxiang"></i><span>{{ shareCount }}</span>
+      </div>
+      <div class="bottom-icon">
+        <i class="iconfont icon-xiazai"></i><span>下载</span>
+      </div>
+      <div class="bottom-icon">
+        <i class="iconfont icon-duoxuan"></i><span>多选</span>
+      </div>
+    </div>
   </div>
 </template>)
 
@@ -45,6 +58,8 @@ export default {
       Nickname: "",
       avatarUrl: "",
       Description: "",
+      commentCount: "",
+      shareCount: "",
     };
   },
   setup() {
@@ -65,6 +80,9 @@ export default {
     this.Nickname = this.playData.creator.nickname;
     this.avatarUrl = this.playData.creator.avatarUrl;
     this.Description = this.playData.description;
+    this.commentCount = this.playData.commentCount;
+    console.log(this.commentCount);
+    this.shareCount = this.playData.shareCount;
     //  console.log(this.playData.creator)
   },
 };
@@ -102,7 +120,7 @@ export default {
   .content-center {
     display: flex;
     flex-direction: row;
-    margin: 2rem 0;
+    margin: 1.5rem 0;
     .center-left {
       position: relative;
       img {
@@ -161,6 +179,20 @@ export default {
   }
 
   .content-buttom {
+    display: flex;
+    justify-items: center;
+    text-align: center;
+    i {
+      font-size: 1.6rem;
+      color: #fff;
+    }
+    .bottom-icon{
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-items: center;
+      color:#fff
+    }
   }
 }
 </style>
