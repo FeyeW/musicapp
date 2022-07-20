@@ -1,8 +1,10 @@
 <template>
  <list-top :playData="state.playData.playlist"></list-top>
+
+ 
 </template>
 
-<script>
+<script >
 import { reactive } from '@vue/reactivity';
 import { onMounted,provide} from "vue";
 import { getPlayList } from "../api/index";
@@ -16,7 +18,7 @@ export default {
     onMounted(async () => {
       let res = await getPlayList(route.query.id);
       state.playData=reactive(res.data)
-      console.log(state.playData.playlist)     
+      console.log(state.playData.playlist)    
     });
     provide('playData',state.playData.playlist)
     return{

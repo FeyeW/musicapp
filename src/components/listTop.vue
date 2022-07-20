@@ -47,10 +47,14 @@
 </template>)
 
 <script>
-import { inject } from "vue";
+import { get, set } from "lodash";
+import { computed, inject,reactive,watch,onMounted } from "vue";
 export default {
-  props: ["playData"],
-  data() {
+  props:{
+  playData:Object
+  },
+  data() {   
+     //let playData = inject("playData")
     return {
       playImg: "",
       playCount: "",
@@ -62,9 +66,9 @@ export default {
       shareCount: "",
     };
   },
-  setup() {
-    let playData = inject("playData");
-    console.log(playData);
+  setup(props) {
+   //let playData = inject("playData")
+
     function handleCount(value) {
       return Math.ceil(value / 10000) + "万";
     }
@@ -72,6 +76,8 @@ export default {
       handleCount,
     };
   },
+
+  
   updated() {
     console.log(this.playData);
     this.playImg = this.playData.coverImgUrl;
