@@ -1,38 +1,37 @@
 
-import { createRouter,
+import {
+    createRouter,
     createWebHashHistory,
-    RouteRecordRaw,NavigationGuardNext,RouteLocationNormalized } from 'vue-router'
-import Home from '../views/Home.vue'
-import About from '../views/About.vue'
-import ListView from '../views/ListView.vue'
+    RouteRecordRaw
+} from 'vue-router'
 
 
-
-const routes:RouteRecordRaw[] =[
-   {
+//类型校验，规范化typescript，增加路由对象类型限制，好处：允许在基础路由里增加开发自定义属性
+const routes: RouteRecordRaw[] = [
+    {
         path: '/',
         name: 'Home',
-        meta:{
-            type:'Home'
+        meta: {
+            type: 'Home'
         },
-        component: () => Home
+        component: () => import('../views/Home.vue')
     },
     {
         path: '/about',
         name: 'About',
-        component: () => About
+        component: () => import('../views/About.vue')
     },
     {
         path: '/listview',
         name: 'ListView',
-        component: () => import('@/views/ListView.vue')
+        component: () => import('../views/ListView.vue')
     }
-    
+
 ];
 
 const router = createRouter({
     history: createWebHashHistory(),
     routes
-  })
+})
 
 export default router

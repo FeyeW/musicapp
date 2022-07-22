@@ -1,19 +1,16 @@
 <template>
-<div class="content-all">
-    <router-view/>
-</div>
-
+  <div class="content-all">
+    <router-view />
+  </div>
 </template>
 
 <script>
-export default {
-
-}
+export default {};
 </script>
 
 <style scoped>
-.content-all{
-    margin: 1rem 0rem;
+.content-all {
+  margin: 1rem 0rem;
 }
 </style> 
 

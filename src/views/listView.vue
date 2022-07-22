@@ -1,29 +1,27 @@
 <template>
- <list-top :playData="state.playData.playlist"></list-top>
-
- 
+  <list-top :playData="state.playData"></list-top>
 </template>
 
 <script >
-import { reactive } from '@vue/reactivity';
-import { onMounted,provide} from "vue";
+import { reactive } from "@vue/reactivity";
+import { onMounted, provide } from "vue";
 import { getPlayList } from "../api/index";
 import { useRoute } from "vue-router";
-import listTop from '../components/listTop.vue'
+import listTop from "../components/listTop.vue";
 export default {
-  components:{listTop},
+  components: { listTop },
   setup() {
     const route = useRoute();
-    let state=reactive({playData:{}})
+    let state = reactive({ playData: {} });
     onMounted(async () => {
       let res = await getPlayList(route.query.id);
-      state.playData=reactive(res.data)
-      console.log(state.playData.playlist)    
+      state.playData = reactive(res.data.playlist);
+      console.log(state.playData);
     });
-    provide('playData',state.playData.playlist)
-    return{
-     state
-    }
+    provide("playData", state.playData.playlist);
+    return {
+      state,
+    };
   },
 };
 </script>

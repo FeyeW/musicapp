@@ -1,7 +1,7 @@
 <template>
   <div class="content">
-    <div class="content-header">
-      <img :src="playImg" alt="" />
+    <div class="content-header" @click="this.$router.back()">
+      <img :src="playData.coverImgUrl" alt="" />
       <div class="header-left">
         <i class="iconfont icon-xitongfanhui">&nbsp;&nbsp;&nbsp;歌单</i>
       </div>
@@ -12,18 +12,18 @@
     </div>
     <div class="content-center">
       <div class="center-left">
-        <img :src="playImg" alt="" />
+        <img :src="playData.coverImgUrl" alt="" />
         <div class="center-count">
           <i class="iconfont icon-bofang bg-play">{{
-            handleCount(this.playCount)
+            handleCount(playData.playCount)
           }}</i>
         </div>
       </div>
       <div class="center-right">
-        <span>{{ playName }}</span>
+        <span>{{ playData.name }}</span>
         <div class="right-header">
           <img :src="avatarUrl" alt="" />
-          <span>{{ Nickname }}</span
+          <span>{{ Data.creator.nickname }}</span
           ><i class="iconfont icon-xiangyoujiantou"></i>
           <p>{{ Description }}</p>
         </div>
@@ -47,14 +47,13 @@
 </template>)
 
 <script>
-import { get, set } from "lodash";
-import { computed, inject,reactive,watch,onMounted } from "vue";
+import { reactive, watch, onMounted, computed, onUpdated } from "vue";
 export default {
-  props:{
-  playData:Object
+  props: {
+    playData: Object,
   },
-  data() {   
-     //let playData = inject("playData")
+  data() {
+    //let playData = inject("playData")
     return {
       playImg: "",
       playCount: "",
@@ -67,7 +66,8 @@ export default {
     };
   },
   setup(props) {
-   //let playData = inject("playData")
+    //let playData = inject("playData");
+    //console.log(this.playData);
 
     function handleCount(value) {
       return Math.ceil(value / 10000) + "万";
@@ -76,8 +76,11 @@ export default {
       handleCount,
     };
   },
-
-  
+  computed: {
+    Data() {
+      return { ...this.playData };
+    },
+  },
   updated() {
     console.log(this.playData);
     this.playImg = this.playData.coverImgUrl;
@@ -87,7 +90,6 @@ export default {
     this.avatarUrl = this.playData.creator.avatarUrl;
     this.Description = this.playData.description;
     this.commentCount = this.playData.commentCount;
-    console.log(this.commentCount);
     this.shareCount = this.playData.shareCount;
     //  console.log(this.playData.creator)
   },
