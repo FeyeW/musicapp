@@ -23,18 +23,20 @@
         <span>{{ playData.name }}</span>
         <div class="right-header">
           <img :src="avatarUrl" alt="" />
-          <span>{{ Data.creator.nickname }}</span
+          <span>{{ Nickname }}</span
           ><i class="iconfont icon-xiangyoujiantou"></i>
-          <p>{{ Description }}</p>
+          <p>{{ playData.description }}</p>
         </div>
       </div>
     </div>
     <div class="content-buttom">
       <div class="bottom-icon">
-        <i class="iconfont icon-pinglun"></i><span>{{ commentCount }}</span>
+        <i class="iconfont icon-pinglun"></i
+        ><span>{{ playData.commentCount }}</span>
       </div>
       <div class="bottom-icon">
-        <i class="iconfont icon-fenxiang"></i><span>{{ shareCount }}</span>
+        <i class="iconfont icon-fenxiang"></i
+        ><span>{{ playData.shareCount }}</span>
       </div>
       <div class="bottom-icon">
         <i class="iconfont icon-xiazai"></i><span>下载</span>
@@ -47,51 +49,30 @@
 </template>)
 
 <script>
-import { reactive, watch, onMounted, computed, onUpdated } from "vue";
+import { reactive, watch, onMounted, computed, onUpdated, ref } from "vue";
 export default {
   props: {
     playData: Object,
   },
-  data() {
-    //let playData = inject("playData")
-    return {
-      playImg: "",
-      playCount: "",
-      playName: "",
-      Nickname: "",
-      avatarUrl: "",
-      Description: "",
-      commentCount: "",
-      shareCount: "",
-    };
-  },
   setup(props) {
     //let playData = inject("playData");
     //console.log(this.playData);
+    let Nickname = ref("");
+    let avatarUrl = ref("");
 
     function handleCount(value) {
       return Math.ceil(value / 10000) + "万";
     }
+    onUpdated(() => {
+      Nickname = props.playData.creator.nickname;
+      avatarUrl = props.playData.creator.avatarUrl;
+    });
+
     return {
       handleCount,
+      Nickname,
+      avatarUrl,
     };
-  },
-  computed: {
-    Data() {
-      return { ...this.playData };
-    },
-  },
-  updated() {
-    console.log(this.playData);
-    this.playImg = this.playData.coverImgUrl;
-    this.playCount = this.playData.playCount;
-    this.playName = this.playData.name;
-    this.Nickname = this.playData.creator.nickname;
-    this.avatarUrl = this.playData.creator.avatarUrl;
-    this.Description = this.playData.description;
-    this.commentCount = this.playData.commentCount;
-    this.shareCount = this.playData.shareCount;
-    //  console.log(this.playData.creator)
   },
 };
 </script>

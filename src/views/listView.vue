@@ -16,9 +16,7 @@ export default {
     onMounted(async () => {
       let res = await getPlayList(route.query.id);
       state.playData = reactive(res.data.playlist);
-      console.log(state.playData);
     });
-    provide("playData", state.playData.playlist);
     return {
       state,
     };
