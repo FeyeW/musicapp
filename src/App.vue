@@ -11,6 +11,7 @@ export default {};
 <style scoped>
 .content-all {
   margin: 1rem 0rem;
+  height: 916px;
 }
 </style> 
 

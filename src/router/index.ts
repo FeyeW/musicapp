@@ -5,9 +5,22 @@ import {
     RouteRecordRaw
 } from 'vue-router'
 
+import login from '../views/Login/Login.vue'
 
 //类型校验，规范化typescript，增加路由对象类型限制，好处：允许在基础路由里增加开发自定义属性
 const routes: RouteRecordRaw[] = [
+    {
+        path: '/',
+        redirect: '/login',
+    },
+    {
+        path: '/login',
+        name: 'Login',
+        meta: {
+            type: 'Login'
+        },
+        component: () => import('../views/Login/Login.vue')
+    },
     {
         path: '/',
         name: 'Home',
