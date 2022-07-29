@@ -58,7 +58,7 @@ export default {};
         width: 20rem;
         height: 3rem;
         font-size: 1.3rem;
-        color: #d52d26;
+        color: @theme-color;
         border: none;
         border-radius: 5rem;
         font-weight: 800;
