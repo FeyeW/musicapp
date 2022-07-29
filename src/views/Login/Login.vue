@@ -5,7 +5,9 @@
     </div>
     <div class="bottom">
       <div class="top-bottom">
-        <button>手机号登陆</button>
+        <router-link to="/login/phone">
+          <button>手机号登陆</button>
+        </router-link>
       </div>
       <div class="bottom-icon">
         <div class="icon-radio"><i class="iconfont icon-weixin"></i></div>
@@ -65,7 +67,7 @@ export default {};
     .bottom-icon {
       display: flex;
       justify-content: space-around;
-      margin-top: 1rem;
+      margin-top: 2rem;
       .icon-radio {
         width: 2.5rem;
         height: 2.5rem;
