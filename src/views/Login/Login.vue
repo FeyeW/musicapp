@@ -53,6 +53,7 @@ export default {};
     bottom: 5%;
     left: 50%;
     transform: translateX(-50%);
+    text-align: center;
     .top-bottom {
       button {
         width: 20rem;
