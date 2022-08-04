@@ -1,7 +1,7 @@
 <template>
   <div class="content">
     <div class="content-head">
-      <i class="iconfont icon-xitongfanhui"></i>
+      <i class="iconfont icon-xitongfanhui" @click="this.$router.back()"></i>
       <p>手机号登陆</p>
     </div>
     <div class="content-center">
@@ -11,23 +11,39 @@
       </p>
       <div class="center-input">
         <div class="input-left">+86</div>
-        <div class="input-center">^</div>
+        <div class="input-center"><i class="iconfont icon-xiangxia"></i></div>
         <input type="text" class="input-right" placeholder="请输入手机号" />
       </div>
     </div>
     <div class="content-bottom">
-      <button>下一步</button>
+      <button @click="handleLogin">下一步</button>
     </div>
+    <div class="content-tip"></div>
   </div>
 </template>
 
 <script>
-export default {};
+import { useRouter, useRoute } from "vue-router";
+export default {
+  setup() {
+    const router = useRouter();
+
+    function handleLogin() {
+      router.push({
+        path: "/home",
+        name: "home",
+      });
+    }
+    return {
+      handleLogin,
+    };
+  },
+};
 </script>
 
 <style scoped lang="less">
 .content {
-  margin-left: 1rem;
+  margin: 1rem 0 0 1rem;
   font-weight: 800;
   .content-head {
     i {

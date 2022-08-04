@@ -19,7 +19,7 @@ const routes: RouteRecordRaw[] = [
         meta: {
             type: 'Login'
         },
-        component: () => import('../views/Login/Login.vue')
+        component: () => import('../views/Login/Login.vue'),
     },
     {
         path: '/login/phone',
