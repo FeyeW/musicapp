@@ -44,13 +44,16 @@
       <div class="bottom-icon">
         <i class="iconfont icon-duoxuan"></i><span>多选</span>
       </div>
+      <bottom-list></bottom-list>
     </div>
   </div>
 </template>)
 
 <script>
 import { reactive, watch, onMounted, computed, onUpdated, ref } from "vue";
+import bottomList from "./listBotton.vue";
 export default {
+  components: { bottomList },
   props: {
     playData: Object,
   },
@@ -79,6 +82,7 @@ export default {
 
 <style lang="less" scoped>
 .content {
+  margin: 1px;
   .content-header {
     display: flex;
     img {
@@ -98,6 +102,7 @@ export default {
     }
 
     .header-right {
+      margin-top: 5px;
       i {
         margin-left: 1.3rem;
       }

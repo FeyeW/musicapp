@@ -31,7 +31,7 @@ export default {
     function handleLogin() {
       router.push({
         path: "/home",
-        name: "home",
+        name: "Home",
       });
     }
     return {

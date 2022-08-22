@@ -6,7 +6,7 @@
     </div>
     <div class="content-bottom">
       <router-link
-        :to="{path:'/listview',query:{id:item.id}}"
+        :to="{ path: '/listview', query: { id: item.id } }"
         class="bottom-bg"
         v-for="item in state.musicList"
         :key="item.id"
@@ -25,7 +25,7 @@
 </template>
 
 <script>
-import { getPerson } from "../api/index";
+import { getPerson } from "../../api/index";
 import { reactive, onMounted } from "vue";
 export default {
   setup() {
@@ -47,7 +47,6 @@ export default {
 </script>
 
 <style lang="less" scoped>
-
 .content {
   .content-head {
     display: flex;
