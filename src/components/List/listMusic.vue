@@ -31,7 +31,7 @@ export default {
   setup() {
     let state = reactive({ musicList: [] });
     onMounted(async () => {
-      let res = await getPerson(6);
+      let res = await getPerson(8);
       state.musicList = reactive(res.data.result);
     });
 
