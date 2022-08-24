@@ -9,6 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "mitt": "^3.0.0",
     "node-sass": "^7.0.1",
     "vue": "^3.2.37",
     "vuex": "^4.0.2"

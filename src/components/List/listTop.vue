@@ -50,16 +50,22 @@
 </template>)
 
 <script>
-import { reactive, watch, onMounted, computed, onUpdated, ref } from "vue";
+import {
+  reactive,
+  watch,
+  onMounted,
+  computed,
+  onUpdated,
+  ref,
+  compile,
+} from "vue";
 import bottomList from "./listBotton.vue";
-import { useStore } from "vuex";
 export default {
   components: { bottomList },
   props: {
     playData: Object,
   },
   setup(props) {
-    let store = useStore();
     //let playData = inject("playData");
     //console.log(this.playData);
     let Nickname = ref("");
@@ -68,10 +74,10 @@ export default {
     function handleCount(value) {
       return Math.ceil(value / 10000) + "万";
     }
+
     onUpdated(() => {
       Nickname = props.playData.creator.nickname;
       avatarUrl = props.playData.creator.avatarUrl;
-      store.commit("saveMusic", props.playData.tracks);
     });
 
     return {

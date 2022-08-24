@@ -36,6 +36,7 @@
 
 <script>
 import { reactive, onUpdated, computed, ref } from "vue";
+import emitter from "../../utils/bus";
 //获取store
 import { useStore } from "vuex";
 export default {
@@ -45,16 +46,15 @@ export default {
     let isListen = ref(Boolean);
     let indexNumber = ref(1);
 
-    function handleIcon(index) {
-      isListen = !isListen;
-      indexNumber = index;
-      console.log(indexNumber);
-    }
-    onUpdated(() => {
-      console.log(indexNumber === index);
-    });
     //从store中拿到音乐的列表数据
     musicObj = store.state.musicObj;
+    function handleIcon(index) {
+      isListen = !isListen;
+      indexNumber.value = index;
+      //通过点击传递指定列表数据
+      emitter.emit("event", musicObj[index]);
+    }
+
     let objLength = musicObj.length;
     return {
       musicObj,
