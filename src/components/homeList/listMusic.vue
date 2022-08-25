@@ -6,7 +6,7 @@
     </div>
     <div class="content-bottom">
       <router-link
-        :to="{ path: '/listview', query: { id: item.id } }"
+        :to="{ path: '/view', query: { id: item.id } }"
         class="bottom-bg"
         v-for="item in state.musicList"
         :key="item.id"

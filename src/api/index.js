@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 let baseURL = 'http://localhost:3000'
-    /* 获取banner */
+/* 获取banner */
 export function getBanner(params) {
     return axios.get(`${baseURL}/banner?type=${params}`)
 }
@@ -12,4 +12,8 @@ export function getPerson(params) {
 /* 获取歌单详情页 */
 export function getPlayList(params) {
     return axios.get(`${baseURL}/playlist/detail?id=${params}`)
+}
+
+export function geyPlayViode(params) {
+    return axios.get(`${baseURL}//personalized/mv?id=${params}`)
 }

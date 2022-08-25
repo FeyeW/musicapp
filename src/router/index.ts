@@ -43,9 +43,9 @@ const routes: RouteRecordRaw[] = [
         component: () => import('../views/About.vue')
     },
     {
-        path: '/listview',
-        name: 'ListView',
-        component: () => import('../views/ListView.vue')
+        path: '/view',
+        name: 'View',
+        component: () => import('../views/View.vue')
     }
 
 ];

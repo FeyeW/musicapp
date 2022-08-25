@@ -9,8 +9,8 @@ import { reactive } from "@vue/reactivity";
 import { onMounted, provide } from "vue";
 import { getPlayList } from "../api/index";
 import { useRoute } from "vue-router";
-import listTop from "../components/List/listTop.vue";
-import listMiddle from "../components/List/listMiddle.vue";
+import listTop from "../components/viewList/listTop.vue";
+import listMiddle from "../components/viewList/listMiddle.vue";
 import { useStore } from "vuex";
 export default {
   components: { listTop, listMiddle },

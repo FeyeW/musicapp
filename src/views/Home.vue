@@ -8,10 +8,10 @@
 </template>
 
 <script>
-import topNav from "../components/topNav.vue";
-import swiperCom from "../components/swiperCom.vue";
-import iconList from "../components/List/listIcon.vue";
-import musicList from "../components/List/listMusic.vue";
+import topNav from "../components/homeList/topNav.vue";
+import swiperCom from "../components/homeList/swiperCom.vue";
+import iconList from "../components/homeList/listIcon.vue";
+import musicList from "../components/homeList/listMusic.vue";
 export default {
   name: "Home",
   components: { topNav, swiperCom, iconList, musicList },
