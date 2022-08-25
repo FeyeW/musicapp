@@ -14,6 +14,10 @@ export function getPlayList(params) {
     return axios.get(`${baseURL}/playlist/detail?id=${params}`)
 }
 
-export function geyPlayViode(params) {
-    return axios.get(`${baseURL}//personalized/mv?id=${params}`)
+export function getPlayViode() {
+    return axios.get(`${baseURL}/personalized/mv`)
+}
+
+export function getPlayRadio() {
+    return axios.get(`${baseURL}/personalized/djprogram`)
 }

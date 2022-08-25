@@ -1,7 +1,7 @@
 <template>
   <div class="content">
     <div class="content-head">
-      <div class="head-left">发现好歌单</div>
+      <div class="head-left">独家放送</div>
       <div class="head-right">查看更多</div>
     </div>
     <div class="content-bottom">
@@ -14,7 +14,10 @@
         <div style="position: relative">
           <img :src="item.picUrl" />
           <div class="bg-count">
-            <i class="iconfont icon-bofang bg-play"></i
+            <i
+              class="iconfont icon-shipin"
+              style="margin-right: 0.3rem; vertical-align: middle"
+            ></i
             >{{ handleCount(item.playCount) }}
           </div>
         </div>
@@ -25,18 +28,19 @@
 </template>
 
 <script>
-import { getPerson } from "../../api/index";
+import { getPlayViode } from "../../api/index";
 import { reactive, onMounted } from "vue";
 export default {
   setup() {
     let state = reactive({ musicList: [] });
     onMounted(async () => {
-      let res = await getPerson(8);
+      let res = await getPlayViode();
+      console.log(res);
       state.musicList = reactive(res.data.result);
     });
 
     function handleCount(value) {
-      return Math.ceil(value / 10000) + "万";
+      return value > 10000 ? Math.ceil(value / 10000) + "万" : value;
     }
     return {
       state,
@@ -74,11 +78,10 @@ export default {
     -ms-overflow-style: none;
     margin-left: 0.8rem;
 
-
     .bottom-bg {
       margin-right: 0.5rem;
       img {
-        width: 5rem;
+        width: 10rem;
       }
       .bg-play {
         font-size: 0.32rem;
