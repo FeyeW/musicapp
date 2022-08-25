@@ -35,30 +35,48 @@
 </template>
 
 <script>
-import { reactive, onUpdated, computed, ref } from "vue";
+import { reactive, onUpdated, computed, ref, onMounted } from "vue";
 import emitter from "../../utils/bus";
 //获取store
 import { useStore } from "vuex";
 export default {
   setup(props) {
     const store = useStore();
-    let musicObj = "";
+    /*     let musicObj = ref(""); */
     let isListen = ref(Boolean);
     let indexNumber = ref(1);
 
     //从store中拿到音乐的列表数据
-    musicObj = store.state.musicObj;
+    /*     onMounted(() => {
+      console.log("====================================");
+      console.log("onUpdated" + store.state.musicObj);
+      console.log("====================================");
+      musicObj.value = store.state.musicObj;
+    }); */
+
+    /*     let data = computed(() => {
+      return store.state.musicObj;
+    });
+ */
+
     function handleIcon(index) {
       isListen = !isListen;
       indexNumber.value = index;
+      console.log("====================================");
+      console.log(store.state.musicObj[index]);
+      console.log("====================================");
       //通过点击传递指定列表数据
-      emitter.emit("event", musicObj[index]);
+      emitter.emit("event", store.state.musicObj[index]);
     }
 
-    let objLength = musicObj.length;
+    //å let objLength = musicObj.length;
     return {
-      musicObj,
-      objLength,
+      musicObj: computed(() => {
+        return store.state.musicObj;
+      }),
+      objLength: computed(() => {
+        return store.state.musicObj.length;
+      }),
       isListen,
       indexNumber,
       handleIcon,

@@ -55,16 +55,14 @@ export default {
     let musicName = ref("");
     let musicAhtuor = ref("");
     let musicTime = ref("");
-
     //获取事件总线传递过来的数据
-    onMounted(() => {
-      emitter.on("event", (e) => {
-        musicPic.value = e.al.picUrl;
-        musicName.value = e.al.name;
-        musicAhtuor.value = e.ar[0].name;
-        console.log(e);
-      });
+    emitter.on("event", (e) => {
+      musicPic.value = e.al.picUrl;
+      musicName.value = e.name;
+      musicAhtuor.value = e.ar[0].name;
+      console.log(e);
     });
+
     return {
       musicPic,
       musicName,
@@ -102,19 +100,21 @@ export default {
     }
   }
   .main-middle {
+    min-width: 14rem;
     .middle-content {
       .content-top {
         font-size: 0.1rem;
         display: flex;
+        justify-content: space-around;
         .content-name {
           white-space: nowrap;
-          max-width: 4rem;
+          max-width: 6rem;
           overflow: hidden;
           text-overflow: ellipsis;
         }
         text {
           white-space: nowrap;
-          max-width: 2rem;
+          max-width: 6rem;
           overflow: hidden;
           text-overflow: ellipsis;
         }
