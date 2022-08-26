@@ -8,6 +8,8 @@
   <suspense> <music-list></music-list> </suspense>
   <suspense><vidoe-list></vidoe-list></suspense>
   <radio-list></radio-list>
+
+  <list-botton></list-botton>
 </template>
 
 <script>
@@ -17,9 +19,19 @@ import iconList from "../components/homeList/listIcon.vue";
 import musicList from "../components/homeList/listMusic.vue";
 import vidoeList from "../components/homeList/listVideo.vue";
 import radioList from "../components/homeList/listRadio.vue";
+import listBotton from "../components/listBotton.vue";
+
 export default {
   name: "Home",
-  components: { topNav, swiperCom, iconList, musicList, vidoeList, radioList },
+  components: {
+    topNav,
+    swiperCom,
+    iconList,
+    musicList,
+    vidoeList,
+    radioList,
+    listBotton,
+  },
 };
 </script>
 

@@ -13,11 +13,11 @@ export function getPerson(params) {
 export function getPlayList(params) {
     return axios.get(`${baseURL}/playlist/detail?id=${params}`)
 }
-
+/* 获取播放的视频 */
 export function getPlayViode() {
     return axios.get(`${baseURL}/personalized/mv`)
 }
-
+/* 获取推荐的音乐台 */
 export function getPlayRadio() {
     return axios.get(`${baseURL}/personalized/djprogram`)
 }

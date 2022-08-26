@@ -40,7 +40,11 @@ const routes: RouteRecordRaw[] = [
     {
         path: '/view',
         name: 'View',
-        component: () => import('../views/View.vue')
+        component: () => import('../views/View.vue'),
+        meta: {
+            keepAlive: true // 需要被缓存
+        }
+
     }
 
 ];

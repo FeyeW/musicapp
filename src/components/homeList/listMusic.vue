@@ -27,9 +27,12 @@
 <script>
 import { getPerson } from "../../api/index";
 import { reactive, onMounted } from "vue";
+import { useStore } from "vuex";
 export default {
   setup() {
     let state = reactive({ musicList: [] });
+    const store = useStore();
+
     onMounted(async () => {
       let res = await getPerson(8);
       state.musicList = reactive(res.data.result);
@@ -73,7 +76,6 @@ export default {
     display: flex;
     -ms-overflow-style: none;
     margin-left: 0.8rem;
-
 
     .bottom-bg {
       margin-right: 0.5rem;

@@ -42,25 +42,46 @@ import {
   onMounted,
   onUpdated,
   reactive,
+  onBeforeMount,
+  onBeforeUnmount,
   ref,
 } from "@vue/runtime-core";
 import { useStore } from "vuex";
-import emitter from "../../utils/bus";
+import emitter from "../utils/bus";
+import { getPlayList } from "../api/index";
 
 export default {
   setup() {
     const store = useStore();
-
     let musicPic = ref("");
     let musicName = ref("");
     let musicAhtuor = ref("");
     let musicTime = ref("");
+
+    let index = parseInt(Math.random() * 10);
+
+    onMounted(async () => {
+
+      let data = JSON.parse(sessionStorage.getItem("vuex")).bottomMusic;
+      console.log(JSON.parse(sessionStorage.getItem("vuex")).bottomMusic);
+
+      musicPic.value = data[0].al.picUrl;
+      musicName.value = data[0].name;
+      musicAhtuor.value = data[0].ar[0].name;
+    });
+
     //获取事件总线传递过来的数据
     emitter.on("event", (e) => {
       musicPic.value = e.al.picUrl;
       musicName.value = e.name;
       musicAhtuor.value = e.ar[0].name;
+      store.commit("getButtomMusic", e);
       console.log(e);
+    });
+
+    //事件总线的卸载，否则会存粗之前的调用
+    onBeforeUnmount(() => {
+      emitter.off("event");
     });
 
     return {

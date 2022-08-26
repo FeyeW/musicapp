@@ -44,7 +44,6 @@
       <div class="bottom-icon">
         <i class="iconfont icon-duoxuan"></i><span>多选</span>
       </div>
-      <bottom-list></bottom-list>
     </div>
   </div>
 </template>)
@@ -59,9 +58,8 @@ import {
   ref,
   compile,
 } from "vue";
-import bottomList from "./listBotton.vue";
 export default {
-  components: { bottomList },
+  components: {},
   props: {
     playData: Object,
   },

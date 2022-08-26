@@ -5,7 +5,16 @@
 </template>
 
 <script>
-export default {};
+import { useStore } from "vuex";
+export default {
+  setup() {
+    const store = useStore();
+    store.dispatch("getMusicList");
+    /* ;
+    store.dispatch("getMusicList");
+    console.log(store.state.bottomMusic); */
+  },
+};
 </script>
 
 <style scoped>

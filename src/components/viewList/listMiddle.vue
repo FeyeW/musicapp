@@ -44,32 +44,16 @@ export default {
     const store = useStore();
     /*     let musicObj = ref(""); */
     let isListen = ref(Boolean);
-    let indexNumber = ref(1);
-
-    //从store中拿到音乐的列表数据
-    /*     onMounted(() => {
-      console.log("====================================");
-      console.log("onUpdated" + store.state.musicObj);
-      console.log("====================================");
-      musicObj.value = store.state.musicObj;
-    }); */
-
-    /*     let data = computed(() => {
-      return store.state.musicObj;
-    });
- */
+    let indexNumber = ref("");
 
     function handleIcon(index) {
       isListen = !isListen;
       indexNumber.value = index;
-      console.log("====================================");
-      console.log(store.state.musicObj[index]);
-      console.log("====================================");
       //通过点击传递指定列表数据
       emitter.emit("event", store.state.musicObj[index]);
     }
 
-    //å let objLength = musicObj.length;
+    // let objLength = musicObj.length;
     return {
       musicObj: computed(() => {
         return store.state.musicObj;
