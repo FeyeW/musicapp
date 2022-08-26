@@ -92,6 +92,7 @@ export default {
   margin: 1px;
   .content-header {
     display: flex;
+    padding: 0.5rem;
     img {
       position: fixed;
       top: 0;

@@ -20,6 +20,7 @@ export default {
 <style scoped>
 .content-all {
   height: 916px;
+  padding-bottom: 3rem;
 }
 </style> 
 

@@ -80,10 +80,14 @@ export default {
   background: rgb(0, 0, 0);
   padding: 0.4rem;
   margin-top: 0.8rem;
-  padding-bottom: 5rem;
+  padding-bottom: 3rem;
   .main-top {
     color: #ccc;
     padding: 0.4rem;
+    position: sticky;
+    top: 0;
+    z-index: 99;
+    background: black;
     i {
       text {
         color: #666;

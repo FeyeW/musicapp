@@ -44,6 +44,7 @@ export default {
 
 <style lang="less" scoped>
 .content {
+  padding-bottom: 3rem;
   .content-head {
     display: flex;
     margin: 1rem;
