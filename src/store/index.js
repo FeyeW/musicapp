@@ -24,10 +24,8 @@ const store = createStore({
         },
         //更新播放拿到的歌单详情
         getButtomMusic(state, obj) {
-            console.log(obj)
             state.bottomMusic.unshift(obj)
             state.bottomMusic.pop()
-            console.log(state.bottomMusic)
         }
     },
     actions: {
@@ -38,7 +36,7 @@ const store = createStore({
 
         }
     },
-    plugins: [persistedState({ storage: window.sessionStorage })]
+    plugins: [persistedState(/* { storage: window.sessionStorage } */)]
 })
 /* const app = createApp({})
 app.use(store)  */

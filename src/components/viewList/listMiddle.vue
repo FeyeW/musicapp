@@ -26,6 +26,10 @@
             >&nbsp;{{ item1.name }}</text
           >
         </div>
+        <i
+          v-show="item.mv !== 0"
+          class="iconfont icon-shipinbofang videoIcon"
+        ></i>
       </div>
       <div class="content-right">
         <i class="iconfont icon-gengduo1"></i>
@@ -52,6 +56,8 @@ export default {
       //通过点击传递指定列表数据
       emitter.emit("event", store.state.musicObj[index]);
     }
+
+    onMounted(() => {});
 
     // let objLength = musicObj.length;
     return {
@@ -89,6 +95,7 @@ export default {
     display: flex;
     flex-direction: row;
     padding: 0.3rem;
+    position: relative;
     .content-left {
       margin-top: 0.6rem;
       color: #fff;
@@ -117,6 +124,12 @@ export default {
           vertical-align: middle;
           font-size: 0.3rem;
         }
+      }
+      .videoIcon {
+        position: absolute;
+        right: 2rem;
+        top: 0.75rem;
+        font-size: 1.2rem;
       }
     }
     .content-right {

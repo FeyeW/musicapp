@@ -6,8 +6,14 @@
         <div class="left-use">
           <i class="iconfont icon-bg-left" style="font-size: 0.6rem"></i>
           <i
+            v-show="isActive"
             class="iconfont icon-24gl-playSquare"
             style="font-size: 1.3rem"
+          ></i>
+          <i
+            v-show="!isActive"
+            class="iconfont icon-zanting1"
+            style="font-size: 1.2rem"
           ></i>
           <i class="iconfont icon-bg-right" style="font-size: 0.6rem"></i>
         </div>
@@ -56,27 +62,35 @@ export default {
     let musicPic = ref("");
     let musicName = ref("");
     let musicAhtuor = ref("");
-    let musicTime = ref("");
-
-    let index = parseInt(Math.random() * 10);
+    let isActive = ref(true);
 
     onMounted(async () => {
-
-      let data = JSON.parse(sessionStorage.getItem("vuex")).bottomMusic;
-      console.log(JSON.parse(sessionStorage.getItem("vuex")).bottomMusic);
+      let data = JSON.parse(localStorage.getItem("vuex")).bottomMusic;
+      
+      //  console.log(JSON.parse(localStorage.getItem("vuex")).bottomMusic);
 
       musicPic.value = data[0].al.picUrl;
       musicName.value = data[0].name;
       musicAhtuor.value = data[0].ar[0].name;
     });
 
+    let ID = [];
     //获取事件总线传递过来的数据
     emitter.on("event", (e) => {
+      console.log(e);
       musicPic.value = e.al.picUrl;
       musicName.value = e.name;
       musicAhtuor.value = e.ar[0].name;
       store.commit("getButtomMusic", e);
-      console.log(e);
+
+      //设置数组存储点击的相应ID的数字，如果第一次点击和第二次点击相同则为停止播放状态
+      ID = [e.id, ...ID];
+      for (let i = 0; i < 2; i++) {
+        ID[0] === ID[1] ? (isActive.value = true) : (isActive.value = false);
+      }
+      if (ID.length === 2) {
+        ID = [];
+      }
     });
 
     //事件总线的卸载，否则会存粗之前的调用
@@ -88,6 +102,7 @@ export default {
       musicPic,
       musicName,
       musicAhtuor,
+      isActive,
     };
   },
 };
