@@ -42,10 +42,9 @@ const routes: RouteRecordRaw[] = [
         meta: {
             keepAlive: true // 需要被缓存
         },
-
     },
     {
-        path: '/view/comment',
+        path: '/comment',
         name: 'Comment',
         component: () => import('../views/Comment.vue')
     }

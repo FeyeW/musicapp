@@ -10,7 +10,8 @@ const store = createStore({
             //整个音乐列表的数据存储
             musicObj: {},
             //底部随机音乐的 存储
-            bottomMusic: {}
+            bottomMusic: {},
+
         }
     },
     mutations:
@@ -27,7 +28,7 @@ const store = createStore({
         getButtomMusic(state, obj) {
             state.bottomMusic.unshift(obj)
             state.bottomMusic.pop()
-        }
+        },
     },
     actions: {
         //拿到列表中的默认播放歌单
@@ -35,7 +36,6 @@ const store = createStore({
             //const index = parseInt(Math.random() * 10)
             // console.log(index)
             let res = await getPlayList(1)
-            console.log(res)
             context.commit('getMusic', res.data.playlist.tracks)
 
         }

@@ -11,16 +11,24 @@
       </div>
     </div>
     <commentTop :playData="playData">
-      <!-- 具名插槽的使用 -->
-      <template v-slot:bg>
-        <img style="width: 10rem" :src="playData.coverImgUrl" alt="" />
+      <!-- 定义具名插槽和内容 -->
+      <template v-slot:white>
+        <div class="center-right">
+          <span>{{ playData.name }}</span>
+          <div class="right-header">
+            <img :src="avatarUrl" alt="" />
+            <span>{{ Nickname }}</span
+            ><i class="iconfont icon-xiangyoujiantou"></i>
+            <p>{{ playData.description }}</p>
+          </div>
+        </div>
       </template>
     </commentTop>
-    <div class="content-buttom ">
-      <router-link class="bottom-icon" to="/view/comment">
+    <div class="content-buttom">
+      <div class="bottom-icon" @click="jumpComment">
         <i class="iconfont icon-pinglun"></i
         ><span>{{ playData.commentCount }}</span>
-      </router-link>
+      </div>
       <div class="bottom-icon">
         <i class="iconfont icon-fenxiang"></i
         ><span>{{ playData.shareCount }}</span>
@@ -37,7 +45,10 @@
 
 <script>
 import commentTop from "../commentTop.vue";
+import { useRouter } from "vue-router";
+
 import {
+  onUnmounted,
   reactive,
   watch,
   onMounted,
@@ -50,9 +61,29 @@ export default {
   components: { commentTop },
   props: {
     playData: Object,
+    listID: String,
   },
   setup(props) {
-    return {};
+    const router = useRouter();
+    let Nickname = ref("");
+    let avatarUrl = ref("");
+
+    function jumpComment() {
+      router.push({
+        path: "comment",
+        query: { id: props.listID },
+      });
+    }
+    onUpdated(() => {
+      console.log(props.playData.coverImgUrl);
+      Nickname.value = props.playData.creator.nickname;
+      avatarUrl.value = props.playData.creator.avatarUrl;
+    });
+    return {
+      jumpComment,
+      Nickname,
+      avatarUrl,
+    };
   },
 };
 </script>
@@ -101,6 +132,83 @@ export default {
       flex-direction: column;
       justify-items: center;
       color: #fff;
+    }
+  }
+}
+
+.center-right {
+  width: 10.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  margin-left: 1.2rem;
+  color: #fff;
+  span {
+    font-size: 1.1rem;
+    font-weight: 800;
+  }
+  .right-header {
+    margin: 0.6rem 0;
+    img {
+      width: 20%;
+      border-radius: 50%;
+      vertical-align: middle;
+    }
+    span {
+      font-weight: normal;
+      font-size: 1rem;
+      margin: 0 0.3rem;
+      opacity: 0.8;
+    }
+    .iconfont {
+      font-size: 0.32rem !important;
+      color: rgb(218, 212, 212);
+    }
+    P {
+      opacity: 0.6;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+    }
+  }
+}
+.center-right {
+  width: 10.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  margin-left: 1.2rem;
+  color: #fff;
+  span {
+    font-size: 1.1rem;
+    font-weight: 800;
+  }
+  .right-header {
+    margin: 0.6rem 0;
+    img {
+      width: 20%;
+      border-radius: 50%;
+      vertical-align: middle;
+    }
+    span {
+      font-weight: normal;
+      font-size: 1rem;
+      margin: 0 0.3rem;
+      opacity: 0.8;
+    }
+    .iconfont {
+      font-size: 0.32rem !important;
+      color: rgb(218, 212, 212);
+    }
+    P {
+      opacity: 0.6;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
     }
   }
 }
