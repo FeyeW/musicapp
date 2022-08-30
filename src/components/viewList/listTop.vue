@@ -10,30 +10,17 @@
         <i class="iconfont icon-gengduo"></i>
       </div>
     </div>
-    <div class="content-center">
-      <div class="center-left">
-        <img :src="playData.coverImgUrl" alt="" />
-        <div class="center-count">
-          <i class="iconfont icon-bofang bg-play">{{
-            handleCount(playData.playCount)
-          }}</i>
-        </div>
-      </div>
-      <div class="center-right">
-        <span>{{ playData.name }}</span>
-        <div class="right-header">
-          <img :src="avatarUrl" alt="" />
-          <span>{{ Nickname }}</span
-          ><i class="iconfont icon-xiangyoujiantou"></i>
-          <p>{{ playData.description }}</p>
-        </div>
-      </div>
-    </div>
-    <div class="content-buttom">
-      <div class="bottom-icon">
+    <commentTop :playData="playData">
+      <!-- 具名插槽的使用 -->
+      <template v-slot:bg>
+        <img style="width: 10rem" :src="playData.coverImgUrl" alt="" />
+      </template>
+    </commentTop>
+    <div class="content-buttom ">
+      <router-link class="bottom-icon" to="/view/comment">
         <i class="iconfont icon-pinglun"></i
         ><span>{{ playData.commentCount }}</span>
-      </div>
+      </router-link>
       <div class="bottom-icon">
         <i class="iconfont icon-fenxiang"></i
         ><span>{{ playData.shareCount }}</span>
@@ -49,6 +36,7 @@
 </template>)
 
 <script>
+import commentTop from "../commentTop.vue";
 import {
   reactive,
   watch,
@@ -59,30 +47,12 @@ import {
   compile,
 } from "vue";
 export default {
-  components: {},
+  components: { commentTop },
   props: {
     playData: Object,
   },
   setup(props) {
-    //let playData = inject("playData");
-    //console.log(this.playData);
-    let Nickname = ref("");
-    let avatarUrl = ref("");
-
-    function handleCount(value) {
-      return Math.ceil(value / 10000) + "万";
-    }
-
-    onUpdated(() => {
-      Nickname = props.playData.creator.nickname;
-      avatarUrl = props.playData.creator.avatarUrl;
-    });
-
-    return {
-      handleCount,
-      Nickname,
-      avatarUrl,
-    };
+    return {};
   },
 };
 </script>
@@ -113,67 +83,6 @@ export default {
       margin-top: 5px;
       i {
         margin-left: 1.3rem;
-      }
-    }
-  }
-
-  .content-center {
-    display: flex;
-    flex-direction: row;
-    margin: 1.5rem 0;
-    .center-left {
-      position: relative;
-      img {
-        width: 10rem;
-      }
-      .center-count {
-        position: absolute;
-        top: 0;
-        right: 1%;
-        color: rgb(255, 255, 255);
-        opacity: 0.8;
-        margin-right: 0.2rem;
-      }
-      .iconfont {
-        font-size: 0.32rem !important;
-      }
-    }
-    .center-right {
-      width: 10.5rem;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-around;
-      margin-left: 1.2rem;
-      color: #fff;
-      span {
-        font-size: 1.1rem;
-        font-weight: 800;
-      }
-      .right-header {
-        margin: 0.6rem 0;
-        img {
-          width: 10%;
-          border-radius: 50%;
-          vertical-align: middle;
-        }
-        span {
-          font-weight: normal;
-          font-size: 1rem;
-          margin: 0 0.3rem;
-          opacity: 0.8;
-        }
-        .iconfont {
-          font-size: 0.32rem !important;
-          color: rgb(218, 212, 212);
-        }
-        P {
-          opacity: 0.6;
-          overflow: hidden;
-          text-overflow: ellipsis;
-          display: -webkit-box;
-          -webkit-line-clamp: 2;
-          -webkit-box-orient: vertical;
-        }
       }
     }
   }

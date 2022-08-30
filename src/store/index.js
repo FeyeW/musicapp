@@ -3,6 +3,7 @@ import { getPlayList } from '../api/index'
 /* 配合vuex进行持久化数据*/
 import persistedState from 'vuex-persistedstate'
 
+
 const store = createStore({
     state() {
         return {
@@ -31,7 +32,10 @@ const store = createStore({
     actions: {
         //拿到列表中的默认播放歌单
         async getMusicList(context) {
+            //const index = parseInt(Math.random() * 10)
+            // console.log(index)
             let res = await getPlayList(1)
+            console.log(res)
             context.commit('getMusic', res.data.playlist.tracks)
 
         }

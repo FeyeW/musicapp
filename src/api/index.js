@@ -21,3 +21,7 @@ export function getPlayViode() {
 export function getPlayRadio() {
     return axios.get(`${baseURL}/personalized/djprogram`)
 }
+/* 获取歌单评论 */
+export function getCommentList(params) {
+    return axios.get(`${baseURL}/comment/playlist?id=${params}`)
+}

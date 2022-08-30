@@ -1,6 +1,5 @@
 <template>
   <!-- 父组件通过props向子组件传递参数 -->
-
   <keep-alive><list-top :playData="state.playData"></list-top></keep-alive>
   <keep-alive><list-middle></list-middle></keep-alive>
   <keep-alive>
@@ -23,7 +22,6 @@ export default {
     const route = useRoute();
     const store = useStore();
     let state = reactive({ playData: {} });
-
 
     onBeforeMount(async () => {
       let res = await getPlayList(route.query.id);
