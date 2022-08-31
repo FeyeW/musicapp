@@ -13,6 +13,7 @@
             <span>{{ Nickname }}</span>
           </div>
           <i
+            @click="this.$router.back()"
             style="position: absolute; right: -0.5rem; top: 2rem"
             class="iconfont icon-xiangyoujiantou"
           ></i>
@@ -24,7 +25,7 @@
       <text>精彩评论</text>
       <div
         class="content-middle"
-        v-for="item in hotComment.hot"
+        v-for="(item, index) in hotComment.hot"
         :key="item.commentId"
       >
         <div class="middle-left">
@@ -32,20 +33,28 @@
         </div>
         <div class="middle-content">
           <div class="content-header">{{ item.user.nickname }}</div>
-          <div class="content-time">2020年6月22日</div>
+          <div class="content-time">{{ hotTime(item.time) }}</div>
           <div class="content-text">{{ item.content }}</div>
         </div>
-        <div class="middle-right">
+        <div
+          :class="item.liked ? 'likeColor' : 'middle-right'"
+          @click="handleLike(index, 'hot')"
+        >
           <span>{{ item.likedCount }}</span>
           <i style="margin-left: 0.3rem" class="iconfont icon-dianzan"></i>
+          <i
+            style="position: absolute; right: 0.03rem; top: 0.1rem; opacity: 0"
+            class="iconfont icon-dianzan"
+            :class="item.liked ? 'likeChange' : 'middle-right'"
+          ></i>
         </div>
       </div>
     </div>
-    <div class="main-content" style="padding: 1rem">
-      <text>最新评论</text>
+    <div class="main-content" style="padding: 1rem; padding-bottom: 4rem">
+      <text>最新评论({{ commentTotal }})</text>
       <div
         class="content-middle"
-        v-for="item in newComment.news"
+        v-for="(item, index) in newComment.news"
         :key="item.commentId"
       >
         <div class="middle-left">
@@ -53,12 +62,20 @@
         </div>
         <div class="middle-content">
           <div class="content-header">{{ item.user.nickname }}</div>
-          <div class="content-time">2020年6月22日</div>
+          <div class="content-time">{{ hotTime(item.time) }}</div>
           <div class="content-text">{{ item.content }}</div>
         </div>
-        <div class="middle-right">
+        <div
+          :class="item.liked ? 'likeColor' : 'middle-right'"
+          @click="handleLike(index, 'new')"
+        >
           <span>{{ item.likedCount }}</span>
           <i style="margin-left: 0.3rem" class="iconfont icon-dianzan"></i>
+          <i
+            style="position: absolute; right: 0.03rem; top: 0.1rem; opacity: 0"
+            class="iconfont icon-dianzan"
+            :class="item.liked ? 'likeChange' : 'middle-right'"
+          ></i>
         </div>
       </div>
     </div>
@@ -92,6 +109,7 @@ export default {
     let state = reactive({ playData: {} });
     /* 评论列表信息 */
     let comment = reactive({ commentData: {} });
+    let commentTotal = ref("");
     /* 头部歌单信息 */
     let Nickname = ref("");
     let avatarUrl = ref("");
@@ -116,10 +134,43 @@ export default {
       avatarUrl.value = state.playData.creator.avatarUrl;
 
       hotComment.hot = comment.commentData.data.hotComments;
-      console.log(comment.commentData.data.comments);
+      console.log(comment.commentData.data);
       newComment.news = comment.commentData.data.comments;
+      commentTotal.value = computed(() => {
+        return comment.commentData.data.total - hotComment.hot.length;
+      });
+      console.log(newComment.news);
       //commentUrl.value = data.commentData.user.avatarUrl;
     });
+
+    /* 计算时间戳 */
+    function hotTime(params) {
+      let date = new Date(params);
+      let newDate = new Date();
+      let newY = newDate.getFullYear();
+
+      let Y = date.getFullYear();
+      let M =
+        date.getMonth() + 1 < 10
+          ? "0" + (date.getMonth() + 1)
+          : date.getMonth() + 1;
+      let D = date.getDay() > 10 ? "0" + date.getDate() : date.getDate();
+      return newY === Y ? M + "月" + D + "日" : Y + "年" + M + "月" + D + "日";
+    }
+
+    const NewComment = "new";
+    const HotComment = "hot";
+    /* 判断是否第一次点击 */
+    function handleLike(index, value) {
+      let item =
+        value === NewComment ? newComment.news[index] : hotComment.hot[index];
+
+      item.liked = !item.liked;
+      item.liked === true ? item.likedCount++ : item.likedCount--;
+      value === NewComment
+        ? (newComment = reactive({ news: newComment.news }))
+        : (hotComment = reactive({ hot: hotComment.hot }));
+    }
 
     return {
       name,
@@ -128,6 +179,9 @@ export default {
       state,
       hotComment,
       newComment,
+      hotTime,
+      commentTotal,
+      handleLike,
     };
   },
 };
@@ -256,6 +310,31 @@ export default {
       -webkit-line-clamp: 2;
       -webkit-box-orient: vertical;
     }
+  }
+}
+/* 处理点赞事件的样式 */
+.likeColor {
+  position: absolute;
+  right: 0;
+  color: red;
+  span {
+    font-size: 0.4rem;
+    margin: 0.3rem 0;
+  }
+}
+.likeChange {
+  color: red;
+  animation: 0.5s ease-in alternate scaleLike;
+}
+@keyframes scaleLike {
+  0% {
+    transform: scale(1); /*开始为原始大小*/
+    opacity: 1;
+  }
+
+  100% {
+    transform: scale(3);
+    opacity: 0;
   }
 }
 </style>
