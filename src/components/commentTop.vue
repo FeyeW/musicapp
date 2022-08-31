@@ -28,7 +28,7 @@ export default {
 .content-center {
   display: flex;
   flex-direction: row;
-  margin: 1.5rem 0;
+  margin: 1rem 0;
   .center-left {
     position: relative;
     img {
