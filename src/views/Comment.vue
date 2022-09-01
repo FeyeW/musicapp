@@ -84,10 +84,12 @@
       <i>@</i>
     </div>
   </div>
+  <list-botton></list-botton>
 </template>
 
 <script>
 import commentTop from "../components/commentTop.vue";
+import listBottom from "../components/listBotton.vue";
 import {
   reactive,
   onUnmounted,
@@ -100,9 +102,10 @@ import {
 } from "vue";
 import { getPlayList, getCommentList } from "@/api";
 import { useRoute } from "vue-router";
+import ListBotton from "../components/listBotton.vue";
 
 export default {
-  components: { commentTop },
+  components: { commentTop, ListBotton },
   setup() {
     const route = useRoute();
     /* 评论头部歌单信息 */
@@ -134,7 +137,7 @@ export default {
       avatarUrl.value = state.playData.creator.avatarUrl;
 
       hotComment.hot = comment.commentData.data.hotComments;
-      console.log(comment.commentData.data);
+      //console.log(comment.commentData.data);
       newComment.news = comment.commentData.data.comments;
       commentTotal.value = computed(() => {
         return comment.commentData.data.total - hotComment.hot.length;
@@ -205,6 +208,7 @@ export default {
   }
   .main-content {
     padding: 2rem 1rem;
+    padding-bottom: 7rem;
     text {
       display: block;
       margin-bottom: 0.5rem;
@@ -251,14 +255,14 @@ export default {
       width: 100%;
       height: 4rem;
       position: fixed;
-      bottom: 0;
+      bottom: 3rem;
       padding: 2rem 0;
       outline: none;
       text-indent: 2rem;
     }
     i {
       position: fixed;
-      bottom: 0;
+      bottom: 3rem;
       left: 23rem;
       line-height: 4rem;
       font-size: 1.6rem;
