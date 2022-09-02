@@ -12,7 +12,12 @@
       <div class="center-input">
         <div class="input-left">+86</div>
         <div class="input-center"><i class="iconfont icon-xiangxia"></i></div>
-        <input type="text" class="input-right" placeholder="请输入手机号" />
+        <input
+          type="text"
+          class="input-right"
+          placeholder="请输入手机号"
+          v-model="number"
+        />
       </div>
     </div>
     <div class="content-bottom">
@@ -24,18 +29,27 @@
 
 <script>
 import { useRouter, useRoute } from "vue-router";
+import { isPhoneNumber } from "../../utils/checkPhone";
+import { ref } from "vue";
+import { ElMessage } from "element-plus";
 export default {
   setup() {
     const router = useRouter();
+    let number = ref("");
 
     function handleLogin() {
-      router.push({
-        path: "/home",
-        name: "Home",
-      });
+      if (!isPhoneNumber(number.value)) {
+        return ElMessage.error("手机号不合格！");
+      } else {
+        router.push({
+          path: "/login/phone/vcode",
+          name: "Vcode",
+        });
+      }
     }
     return {
       handleLogin,
+      number,
     };
   },
 };

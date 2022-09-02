@@ -82,6 +82,7 @@ export default {
       margin-right: 0.5rem;
       img {
         width: 10rem;
+        height: 7rem;
       }
       .bg-play {
         font-size: 0.32rem;
