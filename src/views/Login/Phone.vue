@@ -12,35 +12,57 @@
       <div class="center-input">
         <div class="input-left">+86</div>
         <div class="input-center"><i class="iconfont icon-xiangxia"></i></div>
-        <input
+        <el-input
           type="text"
           class="input-right"
           placeholder="请输入手机号"
-          v-model="number"
+          v-model.trim="number"
+          @focus="onFocus"
         />
       </div>
     </div>
     <div class="content-bottom">
-      <button @click="handleLogin">下一步</button>
+      <button :class="isActive ? 'isButton' : ''" @click="handleLogin">
+        下一步
+      </button>
     </div>
-    <div class="content-tip"></div>
+    <van-number-keyboard
+      v-model="number"
+      :show="showKeyboard"
+      @blur="showKeyboard = false"
+    />
   </div>
 </template>
 
 <script>
 import { useRouter, useRoute } from "vue-router";
 import { isPhoneNumber } from "../../utils/checkPhone";
-import { ref } from "vue";
+import { ref, computed, watch, nextTick } from "vue";
 import { ElMessage } from "element-plus";
+import { postNumber } from "../../api/index";
 export default {
   setup() {
     const router = useRouter();
+    let showKeyboard = ref(false);
     let number = ref("");
-
-    function handleLogin() {
+    let isActive = ref(true);
+    watch(number, (newNumber) => {
+      if (newNumber.length !== 0) {
+        isActive.value = false;
+      }
+    });
+    function onFocus() {
+      showKeyboard.value = true;
+    }
+    async function handleLogin() {
       if (!isPhoneNumber(number.value)) {
         return ElMessage.error("手机号不合格！");
       } else {
+        let phoneInfo = number.value;
+        let res = await postNumber(phoneInfo);
+        sessionStorage.setItem("phone", phoneInfo);
+        console.log(res);
+
         router.push({
           path: "/login/phone/vcode",
           name: "Vcode",
@@ -50,6 +72,9 @@ export default {
     return {
       handleLogin,
       number,
+      isActive,
+      onFocus,
+      showKeyboard,
     };
   },
 };
@@ -87,13 +112,16 @@ export default {
       .input-center {
         margin: 0 0.3rem;
       }
-      input {
+      /deep/ .el-input {
         font-size: 1.2rem;
         font-weight: 800;
         color: @font-grey;
-        border: none;
+        border: none !important;
         margin-top: 1rem;
         outline: none;
+      }
+      /deep/ .el-input__wrapper {
+        box-shadow: none !important;
       }
     }
   }
@@ -113,5 +141,8 @@ export default {
       font-weight: 800;
     }
   }
+}
+.isButton {
+  opacity: 0.1;
 }
 </style>

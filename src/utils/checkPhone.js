@@ -3,6 +3,19 @@ export function isPhoneNumber(tel) {
     var reg = /^1[3-9]\d{9}$/;
     return reg.test(tel);
 }
+// 隐藏手机号2-7位
+export function phoneNumFilter(phone) {
+    let phoneArr = [...phone];
+    let arr = []
+    phoneArr.map((res, index) => {
+        if (index > 2 && index < 7) {
+            arr += '*';
+        } else {
+            arr += res;
+        }
+    });
+    return arr;
+}
 
 // 检测运营商
 export function checkOperator(phone) {
