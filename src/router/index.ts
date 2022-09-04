@@ -5,6 +5,14 @@ import {
     RouteRecordRaw
 } from 'vue-router'
 
+
+const Login = () => import('../views/Login/Login.vue')
+const Phone = () => import('../views/Login/Phone.vue')
+const Vcode = () => import('../views/Login/VerCode.vue')
+const Home = () => import('../views/Home.vue')
+const View = () => import('../views/View.vue')
+const Comment = () => import('../views/Comment.vue')
+
 //类型校验，规范化typescript，增加路由对象类型限制，好处：允许在基础路由里增加开发自定义属性
 const routes: RouteRecordRaw[] = [
     {
@@ -17,7 +25,7 @@ const routes: RouteRecordRaw[] = [
         meta: {
             type: 'Login'
         },
-        component: () => import('../views/Login/Login.vue'),
+        component: Login,
     },
     {
         path: '/login/phone',
@@ -25,25 +33,25 @@ const routes: RouteRecordRaw[] = [
         meta: {
             type: 'Login'
         },
-        component: () => import('../views/Login/Phone.vue'),
+        component: Phone,
     },
     {
         path: '/login/phone/vcode',
         name: 'Vcode',
-        component: () => import('../views/Login/VerCode.vue'),
+        component: Vcode,
     },
     {
         path: '/home',
         name: 'Home',
         meta: {
-            type: 'Home'
+            keepAlive: true
         },
-        component: () => import('../views/Home.vue')
+        component: Home
     },
     {
         path: '/view',
         name: 'View',
-        component: () => import('../views/View.vue'),
+        component: View,
         meta: {
             keepAlive: true // 需要被缓存
         },
@@ -51,7 +59,7 @@ const routes: RouteRecordRaw[] = [
     {
         path: '/comment',
         name: 'Comment',
-        component: () => import('../views/Comment.vue')
+        component: Comment
     }
 
 ];

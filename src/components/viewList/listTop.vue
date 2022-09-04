@@ -1,29 +1,54 @@
 <template>
   <div class="content">
-    <div class="content-header" @click="this.$router.back()">
-      <img :src="playData.coverImgUrl" alt="" />
-      <div class="header-left">
-        <i class="iconfont icon-xitongfanhui">&nbsp;&nbsp;&nbsp;歌单</i>
-      </div>
-      <div class="header-right">
-        <i class="iconfont icon-sousuo1"></i>
-        <i class="iconfont icon-gengduo"></i>
-      </div>
-    </div>
-    <commentTop :playData="playData">
-      <!-- 定义具名插槽和内容 -->
-      <template v-slot:white>
-        <div class="center-right">
-          <span>{{ playData.name }}</span>
-          <div class="right-header">
-            <img :src="avatarUrl" alt="" />
-            <span>{{ Nickname }}</span
-            ><i class="iconfont icon-xiangyoujiantou"></i>
-            <p>{{ playData.description }}</p>
+    <el-skeleton
+      v-show="isShow"
+      style="width: 100%; padding: 3.8rem 1rem; display: flex"
+      animated
+    >
+      <template #template>
+        <el-skeleton-item variant="image" style="width: 10rem; height: 10rem" />
+        <div>
+          <el-skeleton-item
+            variant="h3"
+            style="width: 50%; margin: 2rem 0 0.5rem 1rem"
+          />
+          <div style="margin-left: 1rem">
+            <el-skeleton-item
+              variant="text"
+              style="margin-right: 16px; width: 10rem"
+            />
+            <el-skeleton-item variant="text" style="width: 30%" />
           </div>
         </div>
       </template>
-    </commentTop>
+    </el-skeleton>
+    <div v-show="!isShow">
+      <div class="content-header" @click="this.$router.back()">
+        <img :src="playData.coverImgUrl" alt="" />
+        <div class="header-left">
+          <i class="iconfont icon-xitongfanhui">&nbsp;&nbsp;&nbsp;歌单</i>
+        </div>
+        <div class="header-right">
+          <i class="iconfont icon-sousuo1"></i>
+          <i class="iconfont icon-gengduo"></i>
+        </div>
+      </div>
+      <commentTop :playData="playData">
+        <!-- 定义具名插槽和内容 -->
+        <template v-slot:white>
+          <div class="center-right">
+            <span>{{ playData.name }}</span>
+            <div class="right-header">
+              <img :src="avatarUrl" alt="" />
+              <span>{{ Nickname }}</span
+              ><i class="iconfont icon-xiangyoujiantou"></i>
+              <p>{{ playData.description }}</p>
+            </div>
+          </div>
+        </template>
+      </commentTop>
+    </div>
+
     <div class="content-buttom">
       <div class="bottom-icon" @click="jumpComment">
         <i class="iconfont icon-pinglun"></i
@@ -62,6 +87,7 @@ export default {
   props: {
     playData: Object,
     listID: String,
+    isShow: Boolean,
   },
   setup(props) {
     const router = useRouter();
@@ -75,7 +101,6 @@ export default {
       });
     }
     onUpdated(() => {
-      console.log(props.playData.coverImgUrl);
       Nickname.value = props.playData.creator.nickname;
       avatarUrl.value = props.playData.creator.avatarUrl;
     });

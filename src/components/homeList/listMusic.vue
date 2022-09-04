@@ -11,7 +11,20 @@
         v-for="item in state.musicList"
         :key="item.id"
       >
-        <div style="position: relative">
+        <el-skeleton
+          v-show="isShow"
+          style="width: 100%; padding: 1rem 0"
+          animated
+        >
+          <template #template>
+            <el-skeleton-item
+              variant="image"
+              style="width: 5rem; height: 5rem"
+            />
+            <el-skeleton-item variant="text" style="width: 4rem" />
+          </template>
+        </el-skeleton>
+        <div v-show="!isShow" style="position: relative">
           <img :src="item.picUrl" />
           <div class="bg-count">
             <i class="iconfont icon-bofang bg-play"></i
@@ -26,16 +39,22 @@
 
 <script>
 import { getPerson } from "../../api/index";
-import { reactive, onMounted } from "vue";
+import { reactive, onMounted, ref } from "vue";
 import { useStore } from "vuex";
 export default {
   setup() {
     let state = reactive({ musicList: [] });
     const store = useStore();
-
+    let isShow = ref(false);
+    let time = "";
     onMounted(async () => {
+      isShow.value = true;
       let res = await getPerson(8);
       state.musicList = reactive(res.data.result);
+      clearTimeout(time);
+      time = setTimeout(() => {
+        isShow.value = false;
+      }, 300);
     });
 
     function handleCount(value) {
@@ -44,6 +63,7 @@ export default {
     return {
       state,
       handleCount,
+      isShow,
     };
   },
 };

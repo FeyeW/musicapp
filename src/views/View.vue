@@ -1,7 +1,7 @@
 <template>
   <!-- 父组件通过props向子组件传递参数 -->
   <keep-alive
-    ><list-top :playData="state.playData" :listID="listID">
+    ><list-top :isShow="isShow" :playData="state.playData" :listID="listID">
       <router-view></router-view> </list-top
   ></keep-alive>
   <keep-alive><list-middle></list-middle></keep-alive>
@@ -29,13 +29,16 @@ export default {
     const store = useStore();
     let state = reactive({ playData: {} });
     let listID = ref();
+    let isShow=ref(false)
 
     onBeforeMount(async () => {
+      isShow.value=true
       let res = await getPlayList(route.query.id);
       //console.log(route.query.id);
       state.playData = reactive(res.data.playlist);
       store.commit("saveMusic", state.playData.tracks);
       listID.value = route.query.id;
+      isShow.value=false
     });
     onUnmounted(() => {});
 
@@ -47,6 +50,7 @@ export default {
     return {
       state,
       listID,
+      isShow
     };
   },
 };

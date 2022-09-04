@@ -1,6 +1,6 @@
 import { createApp } from 'vue'
 
-import { ElCarousel, ElProgress,ElInput } from 'element-plus'
+import { ElCarousel, ElProgress, ElInput, ElSkeleton, ElSkeletonItem } from 'element-plus'
 import 'element-plus/dist/index.css'
 
 import { PasswordInput, NumberKeyboard } from 'vant';
@@ -14,6 +14,8 @@ createApp(App).
     use(ElCarousel).
     use(ElProgress).
     use(ElInput).
+    use(ElSkeleton).
+    use(ElSkeletonItem).
     use(PasswordInput).
     use(NumberKeyboard).
     use(router).use(store).

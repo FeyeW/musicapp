@@ -29,7 +29,12 @@
         :key="item.commentId"
       >
         <div class="middle-left">
-          <img :src="item.user.avatarUrl" alt="" />
+          <el-skeleton v-show="isShow" style="--el-skeleton-circle-size: 2rem">
+            <template #template>
+              <el-skeleton-item variant="circle" />
+            </template>
+          </el-skeleton>
+          <img v-show="!isShow" :src="item.user.avatarUrl" alt="" />
         </div>
         <div class="middle-content">
           <div class="content-header">{{ item.user.nickname }}</div>
@@ -58,7 +63,12 @@
         :key="item.commentId"
       >
         <div class="middle-left">
-          <img :src="item.user.avatarUrl" alt="" />
+          <el-skeleton v-show="isShow" style="--el-skeleton-circle-size: 2rem">
+            <template #template>
+              <el-skeleton-item variant="circle" />
+            </template>
+          </el-skeleton>
+          <img v-show="!isShow" :src="item.user.avatarUrl" alt="" />
         </div>
         <div class="middle-content">
           <div class="content-header">{{ item.user.nickname }}</div>
@@ -123,7 +133,12 @@ export default {
     /* 最新评论内容 */
     let newComment = reactive({ news: {} });
 
+    //设置骨架图出现
+    let isShow = ref(false);
+    let time = "";
+
     onMounted(async () => {
+      isShow.value = true;
       /* 获取id传过来的歌单的头部信息 */
       let res = await getPlayList(route.query.id);
       state.playData = res.data.playlist;
@@ -142,8 +157,11 @@ export default {
       commentTotal.value = computed(() => {
         return comment.commentData.data.total - hotComment.hot.length;
       });
-      console.log(newComment.news);
-      //commentUrl.value = data.commentData.user.avatarUrl;
+
+      clearTimeout(time);
+      time = setTimeout(() => {
+        isShow.value = false;
+      }, 500);
     });
 
     /* 计算时间戳 */
@@ -185,6 +203,7 @@ export default {
       hotTime,
       commentTotal,
       handleLike,
+      isShow,
     };
   },
 };
@@ -192,6 +211,7 @@ export default {
 
 <style scoped lang="less">
 .main {
+  padding-bottom: 4rem;
   h4 {
     position: sticky;
     top: 0;
@@ -208,7 +228,6 @@ export default {
   }
   .main-content {
     padding: 2rem 1rem;
-    padding-bottom: 7rem;
     text {
       display: block;
       margin-bottom: 0.5rem;
