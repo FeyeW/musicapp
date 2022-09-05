@@ -11,7 +11,8 @@ const store = createStore({
             musicObj: {},
             //底部随机音乐的 存储
             bottomMusic: {},
-
+            //存储是否点击歌曲
+            isAcitve: true
         }
     },
     mutations:
@@ -29,6 +30,10 @@ const store = createStore({
             state.bottomMusic.unshift(obj)
             state.bottomMusic.pop()
         },
+        //更新播放状态
+        getIsActive(state, value) {
+            state.isAcitve = value
+        }
     },
     actions: {
         //拿到列表中的默认播放歌单
@@ -42,6 +47,5 @@ const store = createStore({
     },
     plugins: [persistedState(/* { storage: window.sessionStorage } */)]
 })
-/* const app = createApp({})
-app.use(store)  */
+
 export default store

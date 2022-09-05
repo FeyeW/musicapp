@@ -22,7 +22,10 @@
       </div>
     </div>
     <div class="content-bottom">
-      <button :class="isActive ? 'isButton' : ''" @click="handleLogin">
+      <button
+        :class="isActive ? 'isButton' : ''"
+        @click="handleLogin(isActive)"
+      >
         下一步
       </button>
     </div>
@@ -54,10 +57,10 @@ export default {
     function onFocus() {
       showKeyboard.value = true;
     }
-    async function handleLogin() {
-      if (!isPhoneNumber(number.value)) {
+    async function handleLogin(value) {
+      if (!isPhoneNumber(number.value) && value == false) {
         return ElMessage.error("手机号不合格！");
-      } else {
+      } else if (value == false) {
         let phoneInfo = number.value;
         let res = await postNumber(phoneInfo);
         sessionStorage.setItem("phone", phoneInfo);
@@ -144,5 +147,8 @@ export default {
 }
 .isButton {
   opacity: 0.1;
+}
+/deep/.el-input__inner {
+  color: black !important;
 }
 </style>

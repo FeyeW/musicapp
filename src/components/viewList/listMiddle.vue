@@ -77,17 +77,17 @@ export default {
 
 <style scoped lang="less">
 .main {
-  background: rgb(0, 0, 0);
+  background: #fff;
   padding: 0.4rem;
   margin-top: 0.8rem;
   padding-bottom: 3rem;
   .main-top {
-    color: #ccc;
+    color: rgb(110, 110, 110);
     padding: 0.4rem;
     position: sticky;
     top: 0;
     z-index: 99;
-    background: black;
+    background: #fff;
     i {
       text {
         color: #666;
@@ -102,7 +102,7 @@ export default {
     position: relative;
     .content-left {
       margin-top: 0.6rem;
-      color: #fff;
+      color: black;
       p {
         display: inline;
       }
@@ -113,7 +113,7 @@ export default {
     }
     .content-midddle {
       margin-left: 0.5rem;
-      color: #fff;
+      color: black;
       font-size: 0.9rem;
       display: inline-block;
       white-space: nowrap;
@@ -122,7 +122,7 @@ export default {
       text-overflow: ellipsis;
       .middle-text {
         font-size: 0.7rem;
-        color: rgb(188, 188, 188);
+        color: rgb(156, 155, 155);
         i {
           color: red;
           vertical-align: middle;
@@ -141,7 +141,7 @@ export default {
       right: 0;
       i {
         font-size: 1.3rem;
-        color: white;
+        color: #666;
         line-height: 2rem;
       }
     }

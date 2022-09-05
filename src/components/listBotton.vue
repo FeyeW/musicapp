@@ -62,11 +62,11 @@ export default {
     let musicPic = ref("");
     let musicName = ref("");
     let musicAhtuor = ref("");
-    let isActive = ref(true);
+    let isActive = ref(store.state.isAcitve);
 
     onMounted(async () => {
       let data = JSON.parse(localStorage.getItem("vuex")).bottomMusic;
-      
+
       //  console.log(JSON.parse(localStorage.getItem("vuex")).bottomMusic);
 
       musicPic.value = data[0].al.picUrl;
@@ -77,7 +77,6 @@ export default {
     let ID = [];
     //获取事件总线传递过来的数据
     emitter.on("event", (e) => {
-      console.log(e);
       musicPic.value = e.al.picUrl;
       musicName.value = e.name;
       musicAhtuor.value = e.ar[0].name;
@@ -86,11 +85,19 @@ export default {
       //设置数组存储点击的相应ID的数字，如果第一次点击和第二次点击相同则为停止播放状态
       ID = [e.id, ...ID];
       for (let i = 0; i < 2; i++) {
-        ID[0] === ID[1] ? (isActive.value = true) : (isActive.value = false);
+        ID[0] === ID[1]
+          ? store.commit("getIsActive", true)
+          : store.commit(
+              "getIsActive",
+              false
+            ); /* (isActive.value = true) : (isActive.value = false); */
       }
       if (ID.length === 2) {
         ID = [];
       }
+      //console.log(isActive.value);
+      isActive.value = store.state.isAcitve;
+      console.log(store.state.isAcitve);
     });
 
     //事件总线的卸载，否则会存粗之前的调用
@@ -110,17 +117,18 @@ export default {
 
 <style scoped lang="less">
 .main {
-  border-top: 1px solid rgb(55, 55, 55);
-  background: #000;
+  border-top: 1px solid rgb(171, 171, 171);
+  background: #fff;
   position: fixed;
   left: 0;
   bottom: 0;
   display: flex;
   justify-content: space-around;
-  color: #fff;
+  color: black;
   padding: 0.5rem;
   z-index: 99;
   width: 100%;
+  opacity: 0.9;
   .main-left {
     display: flex;
     img {

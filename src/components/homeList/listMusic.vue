@@ -47,14 +47,14 @@ export default {
     const store = useStore();
     let isShow = ref(false);
     let time = "";
+    isShow.value = true;
     onMounted(async () => {
-      isShow.value = true;
       let res = await getPerson(8);
       state.musicList = reactive(res.data.result);
       clearTimeout(time);
       time = setTimeout(() => {
         isShow.value = false;
-      }, 300);
+      }, 500);
     });
 
     function handleCount(value) {
