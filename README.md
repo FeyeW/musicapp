@@ -1,7 +1,29 @@
-# Vue 3 + Vite
+# 如何开始
+ - 克隆本项目到本地
+    `git clone git@github.com:FeyeW/musicapp.git`
+ - 后台API地址（再次感谢强大后端开源API🎉）
+    [GitHub指路🙋](https://github.com/Binaryify/NeteaseCloudMusicApi)
+  
+ - 运行
+    `npm run dev`
+## 项目简介
+- 项目结构
+```
+├─ src
+    ├─api                   // 网路请求代码
+    ├─assets                // 字体配置及全局样式
+    ├─style                 // 公共样式
+    ├─components            // 可复用的 UI 组件
+    ├─utils                 // 工具类函数和相关配置
+    ├─views                 // 页面
+    ├─router                // 路由配置文件
+    └─store                 // redux 相关文件
+      App.jsx               // 根组件
+      main.jsx              // 入口文件
+```
+- 效果效果图
 
-This template should help get you started developing with Vue 3 in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+- 项目总结
+    这个Demo是自己手把手撸出来的，算是比较粗糙，比如说代码规划还有代码风格可能不太好；功能也不是很全，还有比如Home页面中可以多个类似的组件可以做利用插槽进行代码优化，如果后面有时间的话可能会一点点去完善，毕竟学习不会止步。💪💪
 
-## Recommended IDE Setup
 
-- [VS Code](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar)
