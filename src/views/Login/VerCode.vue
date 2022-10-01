@@ -81,13 +81,12 @@ export default {
   padding: 1rem;
   .main-top {
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
     i {
       font-size: 1.5rem;
     }
     text {
       font-size: 1.2rem;
-      padding: 0 5.5rem;
     }
     .top-right {
       border-radius: 1rem;
@@ -103,12 +102,12 @@ export default {
     }
     .bottom-top {
       display: flex;
+      justify-content: space-between;
       font-size: 0.8rem;
       color: #666;
       text {
       }
       p {
-        margin-left: 11rem;
         color: #0fa1a1;
       }
     }
