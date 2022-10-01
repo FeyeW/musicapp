@@ -56,22 +56,22 @@ import { useStore } from "vuex";
 import emitter from "../utils/bus";
 import { getPlayList } from "../api/index";
 
+import { mainStore } from "../store/piniaIndex";
 export default {
   setup() {
-    const store = useStore();
+    const storeVuex = useStore();
+    const storePinia = mainStore();
+
     let musicPic = ref("");
     let musicName = ref("");
     let musicAhtuor = ref("");
-    let isActive = ref(store.state.isAcitve);
+    let isActive = ref(storePinia.isAcitve);
 
     onMounted(async () => {
-      let data = JSON.parse(localStorage.getItem("vuex")).bottomMusic;
-
-      //  console.log(JSON.parse(localStorage.getItem("vuex")).bottomMusic);
-
-      musicPic.value = data[0].al.picUrl;
-      musicName.value = data[0].name;
-      musicAhtuor.value = data[0].ar[0].name;
+      musicPic.value = storePinia.bottomMusic.al.picUrl;
+      musicName.value = storePinia.bottomMusic.name;
+      musicAhtuor.value = storePinia.bottomMusic.ar[0].name;
+      console.log(storePinia.bottomMusic.ar[0].name);
     });
 
     let ID = [];
@@ -80,24 +80,23 @@ export default {
       musicPic.value = e.al.picUrl;
       musicName.value = e.name;
       musicAhtuor.value = e.ar[0].name;
-      store.commit("getButtomMusic", e);
+
+      storePinia.$patch((state) => {
+        state.bottomMusic = e;
+      });
 
       //设置数组存储点击的相应ID的数字，如果第一次点击和第二次点击相同则为停止播放状态
       ID = [e.id, ...ID];
       for (let i = 0; i < 2; i++) {
         ID[0] === ID[1]
-          ? store.commit("getIsActive", true)
-          : store.commit(
-              "getIsActive",
-              false
-            ); /* (isActive.value = true) : (isActive.value = false); */
+          ? (storePinia.isAcitve = true)
+          : (storePinia.isAcitve = false);
       }
       if (ID.length === 2) {
         ID = [];
       }
-      //console.log(isActive.value);
-      isActive.value = store.state.isAcitve;
-      console.log(store.state.isAcitve);
+
+      isActive.value = storePinia.isAcitve;
     });
 
     //事件总线的卸载，否则会存粗之前的调用
@@ -127,7 +126,6 @@ export default {
   color: black;
   padding: 0.5rem;
   z-index: 99;
-  width: 100%;
   opacity: 0.9;
   .main-left {
     display: flex;

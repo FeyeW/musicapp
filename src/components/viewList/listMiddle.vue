@@ -43,10 +43,15 @@ import { reactive, onUpdated, computed, ref, onMounted } from "vue";
 import emitter from "../../utils/bus";
 //获取store
 import { useStore } from "vuex";
+//使用 pinia Store
+import { mainStore } from "../../store/index copy";
 export default {
   setup(props) {
-    const store = useStore();
-    /*     let musicObj = ref(""); */
+    const storePinia = mainStore();
+    console.log(storePinia.musicObj);
+    const storeVuex = useStore();
+    console.log(storeVuex.state.musicObj);
+
     let isListen = ref(Boolean);
     let indexNumber = ref("");
 
@@ -54,7 +59,8 @@ export default {
       isListen = !isListen;
       indexNumber.value = index;
       //通过点击传递指定列表数据
-      emitter.emit("event", store.state.musicObj[index]);
+      //emitter.emit("event", storeVuex.state.musicObj[index]);
+      emitter.emit("event", storePinia.musicObj[index]);
     }
 
     onMounted(() => {});
@@ -62,10 +68,12 @@ export default {
     // let objLength = musicObj.length;
     return {
       musicObj: computed(() => {
-        return store.state.musicObj;
+        return storePinia.musicObj;
+        //storeVuex.state.musicObj;
       }),
       objLength: computed(() => {
-        return store.state.musicObj.length;
+        return storePinia.musicObj.length;
+        //storeVuex.state.musicObj.length;
       }),
       isListen,
       indexNumber,

@@ -8,7 +8,14 @@ import 'vant/lib/index.css';
 
 import App from './App.vue'
 import router from './router'
-import store from './store'
+import store from './store/vuexIndex'
+
+//挂载pinia
+import { createPinia } from 'pinia'
+const pinia = createPinia()
+//pinia持久化
+import piniaPluginPersistedstate from 'pinia-plugin-persistedstate'
+pinia.use(piniaPluginPersistedstate)
 
 createApp(App).
     use(ElCarousel).
@@ -18,7 +25,7 @@ createApp(App).
     use(ElSkeletonItem).
     use(PasswordInput).
     use(NumberKeyboard).
-    use(router).use(store).
+    use(router).use(store).use(pinia).
     mount('#app')
 
 

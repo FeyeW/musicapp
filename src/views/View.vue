@@ -22,35 +22,49 @@ import ListBotton from "../components/listBotton.vue";
 
 /* 消息的发布与订阅 */
 import pubsub from "pubsub-js";
+
+//$patch函数：通过函数方式去使用的时候，函数接受一个state的参数，state就是store仓库中的state
+import { mainStore } from "../store/index copy";
+
 export default {
   components: { listTop, listMiddle, ListBotton },
   setup() {
     const route = useRoute();
-    const store = useStore();
+    const storeVuex = useStore();
+    const storePinia = mainStore();
     let state = reactive({ playData: {} });
     let listID = ref();
-    let isShow=ref(false)
+    let isShow = ref(false);
 
     onBeforeMount(async () => {
-      isShow.value=true
+      isShow.value = true;
       let res = await getPlayList(route.query.id);
       //console.log(route.query.id);
       state.playData = reactive(res.data.playlist);
-      store.commit("saveMusic", state.playData.tracks);
+      // storeVuex.commit("saveMusic", state.playData.tracks);
+      
+      //$patch+对象
+      storePinia.$patch({
+        musicObj: state.playData.tracks,
+      });
       listID.value = route.query.id;
-      isShow.value=false
+      isShow.value = false;
     });
     onUnmounted(() => {});
 
     onUpdated(() => {
-      /* 建立一歌单详情的列表，通过store进行多组件共享数据 */
-      store.commit("saveMusic", state.playData.tracks);
+      /* 建立一歌单详情的列表，通过storeVuex进行多组件共享数据 */
+      // storeVuex.commit("saveMusic", state.playData.tracks);
+      //$patch+函数
+      storePinia.$patch((statePinia) => {
+        statePinia.musicObj = state.playData.tracks;
+      });
     });
 
     return {
       state,
       listID,
-      isShow
+      isShow,
     };
   },
 };

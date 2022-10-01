@@ -6,13 +6,13 @@
 
 <script>
 import { useStore } from "vuex";
+import { mainStore } from "./store/piniaIndex";
 export default {
   setup() {
-    const store = useStore();
-    store.dispatch("getMusicList");
-    /* ;
-    store.dispatch("getMusicList");
-    console.log(store.state.bottomMusic); */
+    const storeVuex = useStore();
+    // store.dispatch("getMusicList");
+    const storePinia = mainStore();
+    storePinia.getMusicList();
   },
 };
 </script>
