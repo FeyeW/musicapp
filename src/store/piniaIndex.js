@@ -1,5 +1,7 @@
 import { defineStore } from 'pinia'
 import { getPlayList } from '../api/index'
+
+
 export const mainStore = defineStore('main', {
     state: () => {
         return {
@@ -8,20 +10,17 @@ export const mainStore = defineStore('main', {
             //底部随机音乐的 存储
             bottomMusic: {},
             //存储是否点击歌曲
-            isAcitve: true
+            acitve: true
         }
     },
     getters: {
     },
     actions: {
         //拿到列表中的默认播放歌单
-        async getMusicList(context) {
-            //const index = parseInt(Math.random() * 10)
-            // console.log(index)
-            let res = await getPlayList(1)
-            // state.bottomMusic = res.data.playlist.tracks
-            // context.commit('getMusic', res.data.playlist.tracks)
-
+        async getMusicList(params) {
+            let res = await getPlayList(params)
+            const index = parseInt(Math.random() * 10)
+            res.data.playlist.tracks[index] ? this.bottomMusic = res.data.playlist.tracks[index] : res.data.playlist.tracks[0]
         }
     },
     persist: true

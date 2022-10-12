@@ -42,15 +42,20 @@
 import { reactive, onUpdated, computed, ref, onMounted } from "vue";
 import emitter from "../../utils/bus";
 //获取store
-import { useStore } from "vuex";
+import { mapState, useStore } from "vuex";
 //使用 pinia Store
-import { mainStore } from "../../store/index copy";
+import { mainStore } from "../../store/piniaIndex";
+
 export default {
   setup(props) {
     const storePinia = mainStore();
     console.log(storePinia.musicObj);
     const storeVuex = useStore();
-    console.log(storeVuex.state.musicObj);
+    /*     computed(() => {
+      ...mapState({})
+    }); */
+
+    // console.log(...mapState({ musicObj: "musicObj" }));
 
     let isListen = ref(Boolean);
     let indexNumber = ref("");

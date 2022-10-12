@@ -52,26 +52,32 @@ import {
   onBeforeUnmount,
   ref,
 } from "@vue/runtime-core";
-import { useStore } from "vuex";
+import { useStore, mapState,mapActions } from "vuex";
 import emitter from "../utils/bus";
 import { getPlayList } from "../api/index";
 
 import { mainStore } from "../store/piniaIndex";
+import { storeToRefs } from "pinia";
 export default {
   setup() {
-    const storeVuex = useStore();
+    // const storeVuex = useStore();
     const storePinia = mainStore();
+    //const storeVuex = mapActions(["bottomMusic", "acitve"]);
+    //console.log(storeVuex);
+    const { bottomMusic, acitve } = storeToRefs(storePinia);
+    console.log(bottomMusic);
 
     let musicPic = ref("");
     let musicName = ref("");
     let musicAhtuor = ref("");
-    let isActive = ref(storePinia.isAcitve);
+    let isActive = ref(acitve.value);
 
     onMounted(async () => {
-      musicPic.value = storePinia.bottomMusic.al.picUrl;
-      musicName.value = storePinia.bottomMusic.name;
-      musicAhtuor.value = storePinia.bottomMusic.ar[0].name;
-      console.log(storePinia.bottomMusic.ar[0].name);
+      console.log(bottomMusic.value);
+      musicPic.value = bottomMusic.value.al.picUrl;
+      musicName.value = bottomMusic.value.name;
+      musicAhtuor.value = bottomMusic.value.ar[0].name;
+      console.log(acitve.value);
     });
 
     let ID = [];
@@ -88,15 +94,13 @@ export default {
       //设置数组存储点击的相应ID的数字，如果第一次点击和第二次点击相同则为停止播放状态
       ID = [e.id, ...ID];
       for (let i = 0; i < 2; i++) {
-        ID[0] === ID[1]
-          ? (storePinia.isAcitve = true)
-          : (storePinia.isAcitve = false);
+        ID[0] === ID[1] ? (acitve.value = true) : (acitve.value = false);
       }
       if (ID.length === 2) {
         ID = [];
       }
 
-      isActive.value = storePinia.isAcitve;
+      isActive.value = acitve.value;
     });
 
     //事件总线的卸载，否则会存粗之前的调用

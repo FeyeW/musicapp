@@ -38,8 +38,6 @@ const store = createStore({
     actions: {
         //拿到列表中的默认播放歌单
         async getMusicList(context) {
-            //const index = parseInt(Math.random() * 10)
-            // console.log(index)
             let res = await getPlayList(1)
             context.commit('getMusic', res.data.playlist.tracks)
 

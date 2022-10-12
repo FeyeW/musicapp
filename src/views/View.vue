@@ -12,7 +12,7 @@
 
 <script>
 import { reactive, ref } from "@vue/reactivity";
-import { onMounted, provide, onUpdated, onBeforeMount, onUnmounted } from "vue";
+import { onUpdated, onBeforeMount, onUnmounted } from "vue";
 import { getPlayList } from "../api/index";
 import { useRoute } from "vue-router";
 import listTop from "../components/viewList/listTop.vue";
@@ -24,7 +24,8 @@ import ListBotton from "../components/listBotton.vue";
 import pubsub from "pubsub-js";
 
 //$patch函数：通过函数方式去使用的时候，函数接受一个state的参数，state就是store仓库中的state
-import { mainStore } from "../store/index copy";
+import { mainStore } from "../store/piniaIndex";
+import{storeToRefs} from 'pinia'
 
 export default {
   components: { listTop, listMiddle, ListBotton },
@@ -42,7 +43,7 @@ export default {
       //console.log(route.query.id);
       state.playData = reactive(res.data.playlist);
       // storeVuex.commit("saveMusic", state.playData.tracks);
-      
+
       //$patch+对象
       storePinia.$patch({
         musicObj: state.playData.tracks,

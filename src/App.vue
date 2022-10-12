@@ -9,10 +9,10 @@ import { useStore } from "vuex";
 import { mainStore } from "./store/piniaIndex";
 export default {
   setup() {
-    const storeVuex = useStore();
+    //const storeVuex = useStore();
     // store.dispatch("getMusicList");
     const storePinia = mainStore();
-    storePinia.getMusicList();
+    storePinia.getMusicList(2846054862);
   },
 };
 </script>
